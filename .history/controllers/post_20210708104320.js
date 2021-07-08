@@ -1,0 +1,23 @@
+const Post = require("../models/post");
+exports.getPost = (req, res) => {
+  res.json({
+    posts: [
+      { id: 1, name: "Vijay" },
+      { id: 2, name: "Ridgeant" },
+    ],
+  });
+};
+
+exports.createPost = (req, res) => {
+  const post = new Post(req.body);
+  console.log("Creating post : ", req.body);
+
+  post.save((err, result) => {
+    return res.status(400).json({
+      error: err,
+    });
+    res.status(200).json({
+      post: { result },
+    });
+  });
+};
